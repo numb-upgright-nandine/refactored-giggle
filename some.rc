@@ -1,0 +1,43 @@
+
+setopt HIST_EXPIRE_DUPS_FIRST
+
+# JetBrains terminal (including AI Copilot plugin commands) gets its own history
+# file so it doesn't pollute the main history.
+if [[ "$TERMINAL_EMULATOR" == "JetBrains-JediTerm" ]]; then
+  HISTFILE=~/.zsh_history_jetbrains
+fi
+
+
+
+
+
+
+
+# WSL2 rendering performance fixes
+# Skip GL error checking (safe for production apps, measurable perf gain)
+export MESA_NO_ERROR=1
+
+# Offload GL calls to a separate thread (reduces main-thread stalls)
+export MESA_GLTHREAD=true
+
+# Don't double-wait on vsync (WSLg RDP already paces frames)
+export __GL_SYNC_TO_VBLANK=0
+
+# Force Qt apps (JetBrains Toolbox) to native Wayland, bypassing Xwayland
+# (Xwayland glamor failed → software rendering → choppy)
+export QT_QPA_PLATFORM=wayland
+
+
+
+# for jetbrains to render mouse correctly
+export JDK_JAVA_OPTIONS="-Dcursor.renderer=software"
+
+#alias bcompare='LIBGL_ALWAYS_SOFTWARE=1 QT_SCALE_FACTOR=1.5 bcompare'
+alias bcompare='QT_SCALE_FACTOR=1.5 bcompare'
+
+# WSLg cursor visibility fix (same root cause as JetBrains cursor.renderer=software)
+alias ghostty='LIBGL_ALWAYS_SOFTWARE=1 ghostty'
+
+# Fix mouse cursor disappearing in WSLg
+export XCURSOR_THEME=Adwaita
+export XCURSOR_SIZE=24
