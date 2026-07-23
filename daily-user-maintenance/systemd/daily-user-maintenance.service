@@ -1,0 +1,9 @@
+[Unit]
+Description=Daily pi, Homebrew, and Flatpak maintenance
+Documentation=file:///home/kocsihor/.local/share/doc/daily-user-maintenance/README.md
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/zsh -lic "pi update --extensions && HOMEBREW_NO_CLEANUP_FORMULAE=pi-coding-agent brew upgrade -y && brew autoremove && HOMEBREW_NO_CLEANUP_FORMULAE=pi-coding-agent brew cleanup --prune=all && flatpak uninstall --unused -y"

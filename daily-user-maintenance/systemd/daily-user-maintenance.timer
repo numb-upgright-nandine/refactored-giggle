@@ -1,0 +1,11 @@
+[Unit]
+Description=Daily user maintenance timer
+Documentation=file:///home/kocsihor/.local/share/doc/daily-user-maintenance/README.md
+
+[Timer]
+OnCalendar=daily
+Persistent=true
+RandomizedDelaySec=1h
+
+[Install]
+WantedBy=timers.target
