@@ -1,0 +1,11 @@
+[Unit]
+Description=Daily apt upgrade timer
+Documentation=file:///usr/local/share/doc/daily-apt-upgrade/README.md
+
+[Timer]
+OnCalendar=daily
+Persistent=true
+RandomizedDelaySec=1h
+
+[Install]
+WantedBy=timers.target
