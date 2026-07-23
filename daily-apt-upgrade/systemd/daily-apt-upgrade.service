@@ -1,0 +1,9 @@
+[Unit]
+Description=Daily apt update and full-upgrade
+Documentation=file:///usr/local/share/doc/daily-apt-upgrade/README.md
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash -c "apt update && apt full-upgrade -y"
