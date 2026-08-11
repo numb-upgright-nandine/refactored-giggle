@@ -1,0 +1,39 @@
+From ebbd565f91b5c3c7ac4855d03614d20563a58003 Mon Sep 17 00:00:00 2001
+From: Zsolt Kocsi-Horvath <zsolt.kocsi-horvath@nokia.com>
+Date: Tue, 11 Aug 2026 14:26:35 +0200
+Subject: [PATCH] pip3 aliasing to make consistent with dual /usr/bin and brew
+ pip
+
+---
+ .sharedrc | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+diff --git a/.sharedrc b/.sharedrc
+index 609d27e..c700ad8 100644
+--- a/.sharedrc
++++ b/.sharedrc
+@@ -7,6 +7,21 @@ export HOMEBREW_NO_ENV_HINTS=1
+ eval "$(zoxide init zsh --cmd cd)"
+ source <(fzf --zsh)
+ 
++#
++pip3() {
++  print -u2 "zsh: command not found: pip3"
++  return 127
++}
++
++which() {
++  if [[ "$#" -eq 1 && "$1" == pip3 ]]; then
++    print "pip3 not found"
++    return 1
++  fi
++  builtin which "$@"
++}
++
++
+ 
+ #
+ alias ..='cd .. ; ll'
+-- 
+2.43.0
+
