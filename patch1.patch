@@ -1,0 +1,21 @@
+diff --git a/.sharedrc b/.sharedrc
+index 609d27e..1acc069 100644
+--- a/.sharedrc
++++ b/.sharedrc
+@@ -39,9 +39,13 @@ gsh()     { set -x ;      git stash "$@"
+ 
+ gl()      { set -x ;      git log --graph --oneline "$@"                                            ; { set +x; } 2>/dev/null ; }
+ 
+-gbd()     { set -x ;      original_branch=$(git symbolic-ref --short HEAD)
+-                          git checkout main 2>/dev/null || git checkout master
+-                          git branch -D "$original_branch"                                          ; { set +x; } 2>/dev/null ; }
++gbd()     { set -x ;      if [ "$#" -gt 0 ]; then
++                            git branch -D "$1"
++                          else
++                            original_branch=$(git symbolic-ref --short HEAD)
++                            git checkout main 2>/dev/null || git checkout master
++                            git branch -D "$original_branch"
++                          fi                                                        ; { set +x; } 2>/dev/null ; }
+ 
+ 
+ 
